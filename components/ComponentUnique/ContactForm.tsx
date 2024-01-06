@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import React from 'react';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, useZodForm } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
@@ -19,49 +19,32 @@ interface ContactFormProps {
   onSubmit: SubmitHandler<FormValues>;
 }
 
-const ContactForm: React.FC<ContactFormProps> = ({ onSubmit }) => {
-  const form = useForm({
-    resolver: zodResolver(schemaForm),
+const ContactForm2: React.FC<ContactFormProps> = ({ onSubmit }) => {
+  const form = useZodForm({
+    schema: schemaForm,
     defaultValues: {
       name: '',
       email: '',
       message: '',
-      recipientEmail: 'fortuna77320@gmail.com', // Laissez le champ du destinataire initialisé à une chaîne vide
+      recipientEmail: 'fortuna77320@gmail.com',
     },
   });
 
-  useEffect(() => {
-    // Mettre à jour la valeur du champ du destinataire au montage avec process.env.EMAIL_SUBJECT
-    const defaultRecipientEmail = process.env.EMAIL_SUBJECT || '';
-    if (!form.getValues('recipientEmail')) {
-      form.setValue('recipientEmail', defaultRecipientEmail);
-    }
-  }, [form]);
-
   const handleSendEmail = () => {
     const { name, email, message, recipientEmail } = form.getValues();
-  
-    // Construire l'URL mailto avec les champs pré-remplis
     const mailtoLink = `mailto:${recipientEmail}?subject=Nouveau%20message%20de%20contact&body=Nom:%20${name}%0AEmail:%20${email}%0AMessage:%20${message}&to=${email}`;
-  
-    // Ouvrir le client de messagerie de l'utilisateur
     const mailtoWindow = window.open(mailtoLink, '_blank');
-  
-    // Vérifier si l'ouverture de la fenêtre a réussi
+
     if (mailtoWindow) {
-      // Focus sur la fenêtre pour s'assurer que l'utilisateur la voit
       mailtoWindow.focus();
     } else {
-      // Si l'ouverture de la fenêtre a échoué, rediriger l'utilisateur vers le lien mailto
       window.location.href = mailtoLink;
     }
   };
-  
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        {/* Champ pour le nom */}
+    <Form form={form} onSubmit={onSubmit}>
+      <div className="space-y-8">
         <FormField
           control={form.control}
           name="name"
@@ -75,9 +58,8 @@ const ContactForm: React.FC<ContactFormProps> = ({ onSubmit }) => {
             </FormItem>
           )}
         />
-
-        {/* Champ pour l'email */}
-        <FormField
+         {/* Champ pour l'email */}
+         <FormField
           control={form.control}
           name="email"
           render={({ field }) => (
@@ -121,13 +103,15 @@ const ContactForm: React.FC<ContactFormProps> = ({ onSubmit }) => {
           )}
         />
 
-        {/* Bouton d'envoi du formulaire avec le lien mailto */}
+
+        {/* Ajoutez d'autres champs de formulaire de la même manière */}
+
         <Button type="button" onClick={handleSendEmail}>
           Envoyer
         </Button>
-      </form>
+      </div>
     </Form>
   );
 };
 
-export default ContactForm;
+export default ContactForm2;
