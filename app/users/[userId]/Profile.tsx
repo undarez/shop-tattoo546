@@ -34,6 +34,7 @@ const Profile = ({ user }: PropsWithChildren<{ user: UserProfile }>) => {
                   <div className="flex flex-col gap-0.5">
                      <h3 className="text-2xl font-bold">{user.name}</h3>
                      <p className="font-medium text-lg underline decoration-cyan-300 " >{user.username}</p>
+                     <h2 className="text-xl font-bold">{user.email}</h2>
                   </div>
                   <Avatar>
                      {user.image ? (

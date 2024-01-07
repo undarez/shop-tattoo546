@@ -12,6 +12,7 @@ import clsx from 'clsx'
 const Header = async () => {
 
   const session = await getAuthSession()
+  
   return (
     <header className="border-b border-b-accent top-0 z-20 py-12 bg-background w-full">
       <div className="container flex items-center justify-center p-5 max-w-lg m-auto gap-1">

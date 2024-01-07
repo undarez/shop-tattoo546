@@ -3,12 +3,29 @@ import { getAuthSession } from '@/lib/auth'
 import Slider from '@/components/ComponentUnique/Slider'
 import Portrait_Guillaume from '@/components/ComponentUnique/Portrait_Guillaume'
 import Service from '@/components/ComponentUnique/Service'
+import { signIn, useSession } from 'next-auth/react'
+import Link from 'next/link'
+import { Power } from 'lucide-react'
+import clsx from 'clsx'
+import { buttonVariants } from '@/components/ui/button'
 
 export default async function Home() {
   
+  
   const session = await getAuthSession()
-  return (
-    <div className=" pt-20 flex overflow-hidden flex-col items-center justify-center p-5">
+  if(!session) {
+    signIn('google')
+    return(
+      <div className="container flex flex-col-reverse justify-center items-center">
+       
+        <h2>Veuillez cliquez pour vous connecter et avoir acces a l`intégralité du site</h2>
+
+      </div>
+
+    )
+  }
+    return (
+      <div className=" pt-20 flex overflow-hidden flex-col items-center justify-center p-5">
       <Image className='rounded-lg border border-indigo-600 flex items-center justify-center  m-auto object-cover '
       src={"/assets/acceuilTattou.png"}
       width={800}

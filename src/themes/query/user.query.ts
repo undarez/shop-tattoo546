@@ -10,6 +10,7 @@ const userQuery = {
    name: true,
    username: true,
    image: true,
+   email: true,
    link: true,
 } satisfies Prisma.UserSelect
 

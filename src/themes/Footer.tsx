@@ -14,6 +14,8 @@ const Footer = () => {
             <Link href="https://www.facebook.com/guillaume.rabozzi" className={clsx(buttonVariants({variant:'ghost'}))}><Facebook className='text-blue-600'/></Link>
             <Link href="https://www.instagram.com/546_tattoo/" className={clsx(buttonVariants({variant:'ghost'}))}><Instagram className='text-rose-400' /></Link>
          </div>
+         <span className='text-sm font-bold px-10'>© 2024 SHOP546. Tous droits réservés.
+</span>
       </footer>
    )
 }
