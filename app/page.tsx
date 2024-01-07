@@ -2,6 +2,7 @@ import Image from 'next/image'
 import { getAuthSession } from '@/lib/auth'
 import Slider from '@/components/ComponentUnique/Slider'
 import Portrait_Guillaume from '@/components/ComponentUnique/Portrait_Guillaume'
+import Service from '@/components/ComponentUnique/Service'
 
 export default async function Home() {
   
@@ -18,6 +19,8 @@ export default async function Home() {
       <Slider/>
       </div>
       <Portrait_Guillaume/>
+      <Service/>
+      <span className="textarea w-3/5 font-light text-wrap align-baseline text-sm ">Dans notre studio, votre sécurité est notre priorité. Chaque création est réalisée avec du matériel jetable, stérile et de qualité médicale. Nous surpassons les normes sanitaires pour vous offrir une expérience de tatouage sans compromis sur la sécurité et l`hygiène. Votre satisfaction et votre bien-être sont au cœur de notre engagement, assurant des souvenirs artistiques durables dans les conditions les plus sûres.</span>
 
 
    

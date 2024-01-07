@@ -23,8 +23,8 @@ const Page = () => {
   };
 
   return (
-    <div className="container max-w-full w-full flex items-center justify-center p-8 ">
-      <Card>
+    <div className="container max-w-full w-full flex items-center justify-center p-8  ">
+      <Card className="shadow-lg shadow-cyan-300">
         <CardHeader>
           <CardTitle>Formulaire de Contact</CardTitle>
           <CardDescription>Vous souhaitez nous contacter, veuillez remplir le formulaire pour toute demande.</CardDescription>

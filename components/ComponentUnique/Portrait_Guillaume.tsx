@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 
+
 const Portrait_Guillaume = () => {
   return (
     <div className="flex flex-col items-center justify-center w-full h-auto p-5">
@@ -10,8 +11,8 @@ const Portrait_Guillaume = () => {
           <CardTitle className="border-l-2 border-indigo-500 hover:text-pink-600">Portrait de Guillaume</CardTitle>
           <CardDescription>Presentation de Guillaume 546 Tattoo</CardDescription>
         </CardHeader>
-        <CardContent className="flex flex-col md:flex-row  p-10 m-auto justify-center items-center">
-          <div className="flex items-center justify-center rounded-lg shadow-lg  shadow-blue-500/50 m-10  overflow-hidden ">
+        <CardContent className="flex w-full flex-col md:flex-row  p-10 m-auto justify-center items-center">
+          <div className="flex flex-col items-center justify-center rounded-lg  ">
             <Image
               src="/assets/guillaume.jpg"
               alt="guillaume le tatoueur"
@@ -19,8 +20,7 @@ const Portrait_Guillaume = () => {
               height={400}
               className="rounded-lg"
             />
-          </div>
-          <p className="font-weight font-light text-center text-wrap p-4 w-full md:w-1/2 lg:w-2/3 xl:w-1/2">
+          <p className="font-weight  text-justify  p-4 w-full md:w-1/2 lg:w-2/3 ">
             Guillaume Rabozzi, tatoueur et propriétaire du salon de tatouage 546 Shop à Villeneuve Saint Germain depuis
             2019 : Guillaume Rabozzi est un tatoueur passionné qui opère depuis son salon, le 546 Shop. Installé à
             Villeneuve Saint Germain depuis 2019, il offre à sa clientèle une expérience unique dans le domaine du
@@ -34,8 +34,10 @@ const Portrait_Guillaume = () => {
             expérience de tatouage personnalisée, où chaque projet est pensé de manière unique et adapté aux souhaits de
             ses clients.
           </p>
+          </div>
         </CardContent>
       </Card>
+
     </div>
   );
 };

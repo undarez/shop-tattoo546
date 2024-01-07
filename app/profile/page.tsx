@@ -19,7 +19,7 @@ const page = async () => {
   }
 
   return (
-    <div>
+    <div className="w-50">
         <Profile user={user}> 
         <form>
 

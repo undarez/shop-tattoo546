@@ -20,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="h-auto">
-      <body className={clsx(inter.className, 'bg-background h-full')}>
+      <body className={clsx(inter.className, 'bg-background  h-full')}>
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
           <div className='flex flex-col h-full'>
             <Header/> 

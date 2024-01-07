@@ -15,6 +15,8 @@ import { useRouter } from 'next/navigation'
 import React from 'react'
 import { z } from "zod"
 import { UserEdit } from '@/src/themes/query/user.query'
+import { Save } from 'lucide-react'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 
 // Création d'un schéma de formulaire avec une regex
 const FormSchema = z.object({
@@ -49,19 +51,27 @@ export const ProfileForm : React.FC<ProfileFormProps> =({ onSubmit, user }) => {
 
     const router = useRouter()
 
-    return (
+    return (<div className="flex container justify-center w-full h-auto g-3">
+
+        <Card className="shadow-lg shadow-cyan-300 ">
+            <CardHeader>
+                <CardTitle> Votre Profil </CardTitle>
+                <CardDescription>Afin d`avoir plus de sécurité nous demandons de bien vouloir remplir les champs suivant</CardDescription>
+            </CardHeader>
+            <CardContent>
         <Form
             className="space-y-4"
+            
             form={form}
             onSubmit={async (values) => {
                 const url = await onSubmit(values)
-
+                
                 if (url) {
                     router.push(url)
                     router.refresh()
                 }
             }}
-        >
+            >
             <FormField
                 control={form.control}
                 name="name"
@@ -74,7 +84,7 @@ export const ProfileForm : React.FC<ProfileFormProps> =({ onSubmit, user }) => {
                         <FormMessage />
                     </FormItem>
                 )}
-            />
+                />
             <FormField
                 control={form.control}
                 name="username"
@@ -87,7 +97,7 @@ export const ProfileForm : React.FC<ProfileFormProps> =({ onSubmit, user }) => {
                         <FormMessage />
                     </FormItem>
                 )}
-            />
+                />
             <FormField
                 control={form.control}
                 name="link"
@@ -100,9 +110,12 @@ export const ProfileForm : React.FC<ProfileFormProps> =({ onSubmit, user }) => {
                         <FormMessage />
                     </FormItem>
                 )}
-            />
+                />
 
-            <Button type="submit">Save</Button>
+            <Button type="submit"><Save className='active:bg-transparent active:text-pink-300' /></Button>
         </Form>
+                </CardContent>
+                </Card>
+                </div>
     )
 }

@@ -93,19 +93,19 @@ const Slider = () => {
                      onClick={handlePreviousImage}
                      className="absolute left-4 top-1/2 transform -translate-y-1/2"
                   >
-                     <ChevronLeft className="text-green-300 w-8 h-auto bg-white rounded-md " />
+                     <ChevronLeft className="text-green-300 w-8 h-auto bg-white rounded-md active:text-pink-600 " />
                   </button>
                   <button
                      onClick={handleNextImage}
                      className="absolute right-4 top-1/2 transform -translate-y-1/2"
                   >
-                     <ChevronRight className="text-green-300 w-8 h-auto bg-white rounded-md " />
+                     <ChevronRight className="text-green-300 w-8 h-auto bg-white rounded-md active:text-pink-600 " />
                   </button>
                   <button
                      onClick={closeModal}
                      className="absolute top-4 right-4"
                   >
-                     <X className="text-red-500 w-6 h-auto bg-white rounded-md" />
+                     <X className="text-red-500 w-6 h-auto bg-white rounded-md active:bg-black active:text-green-300" />
                   </button>
                   <Image
                      className="object-cover h-1/2 w-1/2 bg-background rounded-md"
