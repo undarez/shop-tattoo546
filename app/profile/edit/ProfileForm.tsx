@@ -29,15 +29,6 @@ const FormSchema = z.object({
    name: z.string().min(1).max(50),
    username: z.string().min(1).max(50),
    email: z.string().max(60).email(),
-   link: z
-      .string()
-      .max(50)
-      .regex(
-         /^(https?:\/\/)?([\w-]+\.)?\w{0,6}(\/[\w \.-]*)*\/?(\?\w+=\w+)?$/,
-         {
-            message: 'Please enter a valid domain',
-         }
-      ),
 })
 
 export type ProfileFormType = z.infer<typeof FormSchema>
@@ -48,7 +39,6 @@ type ProfileFormProps = {
    onSubmit: (values: {
       name: string
       username: string
-      link: string
       email: string
    }) => Promise<void | string>
 }
@@ -59,7 +49,6 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onSubmit, user }) => {
       defaultValues: {
          name: user.name ?? '',
          username: user.username,
-         link: user.link ?? '',
          email: user.email ?? '',
       },
    })
@@ -78,7 +67,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onSubmit, user }) => {
             </CardHeader>
             <CardContent>
                <Form
-                  className="space-y-4"
+               
                   form={form}
                   onSubmit={async (values) => {
                      const url = await onSubmit(values)
