@@ -8,22 +8,15 @@ import Link from 'next/link'
 import { Power } from 'lucide-react'
 import clsx from 'clsx'
 import { buttonVariants } from '@/components/ui/button'
+import { getUserEdit } from '@/src/themes/query/user.query'
+import UploadForm from '@/components/ComponentUnique/UploaderForm'
 
 export default async function Home() {
+
   
   
   const session = await getAuthSession()
-  if(!session) {
-    signIn('google')
-    return(
-      <div className="container flex flex-col-reverse justify-center items-center">
-       
-        <h2>Veuillez cliquez pour vous connecter et avoir acces a l`intégralité du site</h2>
-
-      </div>
-
-    )
-  }
+ 
     return (
       <div className=" pt-20 flex overflow-hidden flex-col items-center justify-center p-5">
       <Image className='rounded-lg border border-indigo-600 flex items-center justify-center  m-auto object-cover '
@@ -34,6 +27,7 @@ export default async function Home() {
       />
       <div className="pt-10">
       <Slider/>
+      <UploadForm/>
       </div>
       <Portrait_Guillaume/>
       <Service/>

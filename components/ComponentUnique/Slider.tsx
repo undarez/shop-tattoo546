@@ -1,5 +1,6 @@
+// Slider.tsx
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import {
    Carousel,
@@ -9,7 +10,33 @@ import {
    CarouselPrevious,
 } from '../ui/carousel'
 import { Card, CardContent } from '../ui/card'
-import { ChevronLeft, ChevronRight, X } from 'lucide-react'
+import {
+   ChevronLeft,
+   ChevronRight,
+   FileSymlink,
+   ImageDown,
+   X,
+} from 'lucide-react'
+import { z } from 'zod'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { Input } from '../ui/input'
+import { Button } from '../ui/button'
+import { UploadButton, useUploadThing } from '@/lib/uploadthing'
+import { authOptions } from '@/lib/auth'
+import { isBase64Image } from '@/lib/utils'
+import {
+   Form,
+   FormField,
+   FormItem,
+   FormControl,
+   FormLabel,
+   FormMessage,
+} from '../ui/form'
+import ModalAddImage from './ModalAddImage'
+import ModalAddImage2 from './ModalAddImage2'
+import UploadForm from './UploaderForm'
+import { PrismaDataFetchImageCarousel } from '@/app/profile/edit/PrismaDataImageCarouselNeon.action'
+
 
 const imageTattous = [
    '546.jpg',
@@ -22,8 +49,14 @@ const imageTattous = [
 ]
 
 const Slider = () => {
+   const [images, setImages] = useState<string[]>(imageTattous)
    const [isModalOpen, setIsModalOpen] = useState(false)
    const [selectedImageIndex, setSelectedImageIndex] = useState(0)
+   const [isAddImageModalOpen, setIsAddImageModalOpen] = useState(false)
+   const [selectedImageFile, setSelectedImageFile] = useState<string[]>([])
+   const fileInputRef = useRef<HTMLInputElement>(null)
+
+   const form = useForm()
 
    const openModal = (index: number) => {
       setSelectedImageIndex(index)
@@ -32,29 +65,52 @@ const Slider = () => {
 
    const closeModal = () => {
       setIsModalOpen(false)
+      setIsAddImageModalOpen(false)
    }
 
    const handleNextImage = (event: React.MouseEvent<HTMLButtonElement>) => {
       event.stopPropagation()
-      setSelectedImageIndex(
-         (prevIndex) => (prevIndex + 1) % imageTattous.length
-      )
+      setSelectedImageIndex((prevIndex) => (prevIndex + 1) % images.length)
    }
 
    const handlePreviousImage = (event: React.MouseEvent<HTMLButtonElement>) => {
       event.stopPropagation()
       setSelectedImageIndex(
-         (prevIndex) =>
-            (prevIndex - 1 + imageTattous.length) % imageTattous.length
+         (prevIndex) => (prevIndex - 1 + images.length) % images.length
       )
    }
+
+   useEffect(()=> {
+      PrismaDataFetchImageCarousel(setImages)
+   }, [])
+
+   //Fonction PrismaDataFetchImageCarousel 
+   //recupere les images de neon grace a prisma pour les ajouter dans le carousel
+
+   // const PrismaDataFetchImageCarousel = async () => {
+   //    try {
+   //       const tattooImages = await prisma.tattooImage.findMany({
+   //          select: {
+   //             imageUrl: true,
+   //          },
+   //       });
+   //       setImages(tattooImages.map((image) => image.imageUrl));
+   //    } catch (error) {
+   //       console.error('Erreur lors de la récupération des images depuis la base de données:', error);
+   //    }
+   // };
+
+   // // Utilisez useEffect pour appeler la fonction après le rendu initial
+   // useEffect(() => {
+   //    PrismaDataFetchImageCarousel();
+   // }, []); // Le tableau vide des dépendances signifie que cela ne dépend d'aucun état, ce qui le rend équivalent à componentDidMount
 
    return (
       <div>
          {/* Votre carousel existant */}
          <Carousel className="w-full max-w-sm">
             <CarouselContent>
-               {imageTattous.map((imageTattou, index) => (
+               {images.map((image, index) => (
                   <CarouselItem
                      key={index}
                      className="pl-1 md:basis-1/2 lg:basis-1/3"
@@ -64,7 +120,7 @@ const Slider = () => {
                            <CardContent className="flex aspect-square items-center justify-center p-6">
                               <Image
                                  className="object-cover rounded-lg cursor-pointer"
-                                 src={`/assets/${imageTattou}`}
+                                 src={`/assets/${image}`}
                                  alt={`Tattoo image ${index + 1}`}
                                  width={200}
                                  height={200}
@@ -117,6 +173,27 @@ const Slider = () => {
                </div>
             </div>
          )}
+         {/* Modale pour rajouter un button qui va demander pour rajouter des images */}
+         {isAddImageModalOpen && (
+            <div
+               className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center"
+               onClick={closeModal}
+            >
+               <ModalAddImage2 />
+            </div>
+         )}
+
+         <div className="container w-full h-auto m-auto flex justify-center items-center py-5">
+            <Button
+               type="button"
+               onClick={(event) => {
+                  event.stopPropagation()
+                  setIsAddImageModalOpen(true)
+               }}
+            >
+               <ImageDown className="" />
+            </Button>
+         </div>
       </div>
    )
 }

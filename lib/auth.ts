@@ -5,8 +5,14 @@ import { env } from './env';
 import { AuthOptions, getServerSession } from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "./prisma";
+import {useSession} from "next-auth/react"
 
-
+// export const useAuth= () => {
+//   const {data: session} = useSession<Session>();
+//   return{
+//     session
+//   }
+// }
 
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),

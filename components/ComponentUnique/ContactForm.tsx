@@ -15,7 +15,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { Textarea } from '../ui/textarea'
 
-const schemaForm = z.object({
+export const schemaForm = z.object({
    name: z.string().min(2).max(25),
    email: z.string().email(),
    message: z.string().min(5).max(500),
